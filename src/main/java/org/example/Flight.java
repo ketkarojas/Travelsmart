@@ -6,6 +6,7 @@ public class Flight implements Comparable<Flight> {
     private String FlightCompany;
     private String SourceCity;
     private String DestinationCity;
+    private String airline;
     private int fare;
     int duration;
 
@@ -62,11 +63,16 @@ public class Flight implements Comparable<Flight> {
         if(FlightNumber.startsWith("1")) FlightCompany = "AirIndia";
         else if(FlightNumber.startsWith("2")) FlightCompany = "JetAirways";
         if(FlightNumber.startsWith("3")) FlightCompany = "SpiceJet";
+        airline = FlightCompany;
+    }
+
+    public String getFlightCompany() {
+        return airline;
     }
 
     @Override
     public String toString() {
-        return "Flight " + FlightCompany + "[FlightNumber=" + FlightNumber + ", SourceCity=" + SourceCity + ", DestinationCity="
+        return FlightCompany + " [FlightNumber=" + FlightNumber + ", SourceCity=" + SourceCity + ", DestinationCity="
                 + DestinationCity + ", fare=" + fare + ", duration=" + duration + "]";
     }
 
@@ -89,4 +95,6 @@ public class Flight implements Comparable<Flight> {
         return Comparator.comparingInt(Flight::getFare)
                 .thenComparingInt(Flight::getDuration);
     }
+
+    
 }

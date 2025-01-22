@@ -40,6 +40,27 @@ public class Main {
         return executorService.submit(() -> searchFlights(sourceCity, destinationCity));
     }
 
+    private void printFlightsTable(List<Flight> flights) {
+        String format = "| %-3s | %-15s | %-15s | %-15s | %-10s | %-10s |%n";
+        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format("| No. | Airline         | Source City     | Destination City| Fare       | Duration   |%n");
+        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
+        for (int i = 0; i < flights.size(); i++) {
+            Flight flight = flights.get(i);
+            System.out.format(format, (i + 1), flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
+        }
+        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
+    }
+
+    private void printSingleFlightTable(Flight flight) {
+        String format = "| %-15s | %-15s | %-15s | %-10s | %-10s |%n";
+        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format("| Airline         | Source City     | Destination City| Fare       | Duration   |%n");
+        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format(format, flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
+        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -59,9 +80,8 @@ public class Main {
                 System.out.println("No flights found between " + sourceCity + " and " + destinationCity);
             } else {
                 System.out.println("Available flights:");
-                for (int i = 0; i < flights.size(); i++) {
-                    System.out.println((i + 1) + ". " + flights.get(i));
-                }
+                main.printFlightsTable(flights);
+
                 // Prompt for sorting preference
                 System.out.println("Sort by: 1. Fare 2. Duration 3. Both");
                 int sortOption = scanner.nextInt();
@@ -85,16 +105,15 @@ public class Main {
                 }
 
                 System.out.println("Sorted flights:");
-                for (int i = 0; i < flights.size(); i++) {
-                    System.out.println((i + 1) + ". " + flights.get(i));
-                }
+                main.printFlightsTable(flights);
 
                 // Select a flight from the list
                 System.out.print("Select a flight (1-" + flights.size() + "): ");
                 int choice = scanner.nextInt();
                 if (choice > 0 && choice <= flights.size()) {
                     Flight selectedFlight = flights.get(choice - 1);
-                    System.out.println("You selected: " + selectedFlight);
+                    System.out.println("You selected:");
+                    main.printSingleFlightTable(selectedFlight);
 
                     // Prompt for number of tickets
                     System.out.print("Enter the number of tickets: ");
