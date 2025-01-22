@@ -2,6 +2,7 @@ package org.example;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 public class Main {
     private List<Flight> flights = new ArrayList<>();
@@ -29,14 +30,10 @@ public class Main {
     }
 
     public List<Flight> searchFlights(String sourceCity, String destinationCity) {
-        List<Flight> result = new ArrayList<>();
-        for (Flight flight : flights) {
-            if (flight.getSourceCity().equalsIgnoreCase(sourceCity)
-                    && flight.getDestinationCity().equalsIgnoreCase(destinationCity)) {
-                result.add(flight);
-            }
-        }
-        return result;
+        return flights.stream()
+                .filter(flight -> flight.getSourceCity().equalsIgnoreCase(sourceCity)
+                        && flight.getDestinationCity().equalsIgnoreCase(destinationCity))
+                .collect(Collectors.toList());
     }
 
     public Future<List<Flight>> searchFlightsAsync(String sourceCity, String destinationCity) {
