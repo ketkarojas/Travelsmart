@@ -48,7 +48,7 @@ public class Flight implements Comparable<Flight> {
     }
 
     public void setFlightNumber(String flightNumber) {
-        flightNumber = flightNumber;
+        this.flightNumber = flightNumber;
     }
 
     public String getSourceCity() {

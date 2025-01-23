@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        FlightService flightService = new FlightService();
+        FlightService flightService = FlightService.getInstance();
 
         // Load flight data
         flightService.loadFlights("src\\main\\resources\\AirIndia_Flights.txt");

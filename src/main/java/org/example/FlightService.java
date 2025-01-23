@@ -6,8 +6,21 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 public class FlightService {
+    private static final FlightService instance = new FlightService();
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
     private final List<Flight> flights = new ArrayList<>();
+
+    // Private constructor for Singleton
+    private FlightService() {
+    }
+
+    public static FlightService getInstance() {
+        return instance;
+    }
+
+    public void clearFlights() {
+        flights.clear();
+    }
 
     public void loadFlights(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {

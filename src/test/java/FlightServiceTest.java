@@ -21,7 +21,8 @@ public class FlightServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        flightService = new FlightService();
+        flightService = FlightService.getInstance();
+        flightService.clearFlights(); // Reset the singleton instance
     }
 
     @Test
