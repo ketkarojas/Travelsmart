@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.Comparator;
 
 public class Flight implements Comparable<Flight> {
@@ -10,31 +11,17 @@ public class Flight implements Comparable<Flight> {
     private int fare;
     int duration;
 
-    // Custom exception for invalid flight details
-    public static class InvalidFlightDetailsException extends RuntimeException {
-        public InvalidFlightDetailsException(String message) {
-            super(message);
+    // Factory method
+    public static Flight createFlight(String FlightNumber, String SourceCity, String DestinationCity, int fare,
+            int duration) {
+        if (fare < 0 || duration < 0) {
+            throw new IllegalArgumentException("Fare and duration must be non-negative.");
         }
+        return new Flight(FlightNumber, SourceCity, DestinationCity, fare, duration);
     }
 
     // Constructor to initialize flight details with validation
     public Flight(String flightNumber, String sourceCity, String destinationCity, int fare, int duration) {
-        if (flightNumber == null || flightNumber.isEmpty()) {
-            throw new InvalidFlightDetailsException("Flight company cannot be null or empty.");
-        }
-        if (sourceCity == null || sourceCity.isEmpty()) {
-            throw new InvalidFlightDetailsException("Source city cannot be null or empty.");
-        }
-        if (destinationCity == null || destinationCity.isEmpty()) {
-            throw new InvalidFlightDetailsException("Destination city cannot be null or empty.");
-        }
-        if (fare < 0) {
-            throw new InvalidFlightDetailsException("Fare cannot be negative.");
-        }
-        if (duration <= 0) {
-            throw new InvalidFlightDetailsException("Duration must be greater than zero.");
-        }
-
         this.flightNumber = flightNumber;
         this.sourceCity = sourceCity;
         this.destinationCity = destinationCity;
@@ -95,9 +82,12 @@ public class Flight implements Comparable<Flight> {
 
     // Function to set the airline depending on the flight code
     public void setFlightCompany() {
-        if (flightNumber.startsWith("1")) flightCompany = "AirIndia";
-        else if (flightNumber.startsWith("2")) flightCompany = "JetAirways";
-        else if (flightNumber.startsWith("3")) flightCompany = "SpiceJet";
+        if (flightNumber.startsWith("1"))
+            flightCompany = "AirIndia";
+        else if (flightNumber.startsWith("2"))
+            flightCompany = "JetAirways";
+        else if (flightNumber.startsWith("3"))
+            flightCompany = "SpiceJet";
         airline = flightCompany;
     }
 

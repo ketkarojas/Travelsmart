@@ -52,68 +52,21 @@ public class FlightTest {
         assertEquals(8, flights.get(2).getDuration()); // Airline B should be last
     }
 
-    // Test for invalid flight company (null or empty)
-    @Test
-    public void testInvalidFlightCompany() {
-        Exception exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight(null, "New York", "London", 500, 7);
-        });
-        assertEquals("Flight company cannot be null or empty.", exception.getMessage());
-
-        exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("", "New York", "London", 500, 7);
-        });
-        assertEquals("Flight company cannot be null or empty.", exception.getMessage());
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateFlightWithNegativeFare() {
+        // Attempt to create a flight with a negative fare
+        Flight.createFlight("AI101", "Delhi", "Mumbai", -5000, 2);
     }
 
-    // Test for invalid source city (null or empty)
-    @Test
-    public void testInvalidSourceCity() {
-        Exception exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", null, "London", 500, 7);
-        });
-        assertEquals("Source city cannot be null or empty.", exception.getMessage());
-
-        exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "", "London", 500, 7);
-        });
-        assertEquals("Source city cannot be null or empty.", exception.getMessage());
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateFlightWithNegativeDuration() {
+        // Attempt to create a flight with a negative duration
+        Flight.createFlight("AI101", "Delhi", "Mumbai", 5000, -2);
     }
 
-    // Test for invalid destination city (null or empty)
-    @Test
-    public void testInvalidDestinationCity() {
-        Exception exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "New York", null, 500, 7);
-        });
-        assertEquals("Destination city cannot be null or empty.", exception.getMessage());
-
-        exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "New York", "", 500, 7);
-        });
-        assertEquals("Destination city cannot be null or empty.", exception.getMessage());
-    }
-
-    // Test for invalid fare (negative value)
-    @Test
-    public void testInvalidFare() {
-        Exception exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "New York", "London", -500, 7);
-        });
-        assertEquals("Fare cannot be negative.", exception.getMessage());
-    }
-
-    // Test for invalid duration (zero or negative value)
-    @Test
-    public void testInvalidDuration() {
-        Exception exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "New York", "London", 500, -7);
-        });
-        assertEquals("Duration must be greater than zero.", exception.getMessage());
-
-        exception = assertThrows(Flight.InvalidFlightDetailsException.class, () -> {
-            new Flight("Airline A", "New York", "London", 500, 0);
-        });
-        assertEquals("Duration must be greater than zero.", exception.getMessage());
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateFlightWithNegativeFareAndDuration() {
+        // Attempt to create a flight with both negative fare and duration
+        Flight.createFlight("AI101", "Delhi", "Mumbai", -5000, -2);
     }
 }

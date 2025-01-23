@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 public class FlightService {
     // Singleton instance of FlightService
     private static final FlightService instance = new FlightService();
-    
+
     // Executor service for handling asynchronous tasks
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
-    
+
     // List to store flight details
     private final List<Flight> flights = new ArrayList<>();
 
@@ -36,8 +36,12 @@ public class FlightService {
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
                 String[] details = line.split(",");
-                flights.add(new Flight(details[0].trim(), details[1].trim(), details[2].trim(),
-                        Integer.parseInt(details[3].trim()), Integer.parseInt(details[4].trim())));
+                flights.add(Flight.createFlight(
+                        details[0].trim(),
+                        details[1].trim(),
+                        details[2].trim(),
+                        Integer.parseInt(details[3].trim()),
+                        Integer.parseInt(details[4].trim())));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,7 +56,8 @@ public class FlightService {
                 .collect(Collectors.toList());
     }
 
-    // Method to search for flights asynchronously based on source and destination cities
+    // Method to search for flights asynchronously based on source and destination
+    // cities
     public Future<List<Flight>> searchFlightsAsync(String sourceCity, String destinationCity) {
         return executorService.submit(() -> searchFlights(sourceCity, destinationCity));
     }
