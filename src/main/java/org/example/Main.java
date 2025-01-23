@@ -61,24 +61,24 @@ public class Main {
     }
 
     private static void printFlightsTable(List<Flight> flights) {
-        String format = "| %-3s | %-15s | %-15s | %-15s | %-10s | %-10s |%n";
-        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
-        System.out.format("| No. | Airline         | Source City     | Destination City| Fare       | Duration   |%n");
-        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
+        String format = "| %-3s | %-10s | %-15s | %-15s | %-15s | %-10s | %-10s |%n";
+        System.out.format("+-----+------------+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format("| No. | Flight No. | Airline         | Source City     | Destination City| Fare       | Duration   |%n");
+        System.out.format("+-----+------------+-----------------+-----------------+-----------------+------------+------------+%n");
         for (int i = 0; i < flights.size(); i++) {
             Flight flight = flights.get(i);
-            System.out.format(format, (i + 1), flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
+            System.out.format(format, (i + 1), flight.getFlightNumber(), flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
         }
-        System.out.format("+-----+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format("+-----+------------+-----------------+-----------------+-----------------+------------+------------+%n");
     }
-
+    
     private static void printSingleFlightTable(Flight flight) {
-        String format = "| %-15s | %-15s | %-15s | %-10s | %-10s |%n";
-        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
-        System.out.format("| Airline         | Source City     | Destination City| Fare       | Duration   |%n");
-        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
-        System.out.format(format, flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
-        System.out.format("+-----------------+-----------------+-----------------+------------+------------+%n");
+        String format = "| %-10s | %-15s | %-15s | %-15s | %-10s | %-10s |%n";
+        System.out.format("+------------+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format("| Flight No. | Airline         | Source City     | Destination City| Fare       | Duration   |%n");
+        System.out.format("+------------+-----------------+-----------------+-----------------+------------+------------+%n");
+        System.out.format(format, flight.getFlightNumber(), flight.getFlightCompany(), flight.getSourceCity(), flight.getDestinationCity(), flight.getFare(), flight.getDuration());
+        System.out.format("+------------+-----------------+-----------------+-----------------+------------+------------+%n");
     }
 
     private static Comparator<Flight> getSortingComparator(int option) {
