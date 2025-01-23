@@ -6,22 +6,30 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 public class FlightService {
+    // Singleton instance of FlightService
     private static final FlightService instance = new FlightService();
+    
+    // Executor service for handling asynchronous tasks
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    
+    // List to store flight details
     private final List<Flight> flights = new ArrayList<>();
 
-    // Private constructor for Singleton
+    // Private constructor for Singleton pattern
     private FlightService() {
     }
 
+    // Method to get the singleton instance of FlightService
     public static FlightService getInstance() {
         return instance;
     }
 
+    // Method to clear the list of flights
     public void clearFlights() {
         flights.clear();
     }
 
+    // Method to load flights from a CSV file
     public void loadFlights(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -36,6 +44,7 @@ public class FlightService {
         }
     }
 
+    // Method to search for flights based on source and destination cities
     public List<Flight> searchFlights(String sourceCity, String destinationCity) {
         return flights.stream()
                 .filter(flight -> flight.getSourceCity().equalsIgnoreCase(sourceCity)
@@ -43,14 +52,17 @@ public class FlightService {
                 .collect(Collectors.toList());
     }
 
+    // Method to search for flights asynchronously based on source and destination cities
     public Future<List<Flight>> searchFlightsAsync(String sourceCity, String destinationCity) {
         return executorService.submit(() -> searchFlights(sourceCity, destinationCity));
     }
 
+    // Method to shut down the executor service
     public void shutdown() {
         executorService.shutdown();
     }
 
+    // Method to sort flights based on a given comparator
     public void sortFlights(List<Flight> flights, Comparator<Flight> comparator) {
         flights.sort(comparator);
     }
