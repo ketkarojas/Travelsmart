@@ -46,6 +46,10 @@ public class Main {
                     System.out.print("Enter the number of tickets: ");
                     int numberOfTickets = scanner.nextInt();
 
+                    if (numberOfTickets <= 0) {
+                        throw new InvalidTicketNumberException("Ticket number must be positive.");
+                    }
+
                     int totalFare = selectedFlight.getFare() * numberOfTickets;
                     System.out.println("Total fare for " + numberOfTickets + " tickets: " + totalFare);
                 } else {
@@ -81,7 +85,7 @@ public class Main {
         System.out.format("+------------+-----------------+-----------------+-----------------+------------+------------+%n");
     }
 
-    private static Comparator<Flight> getSortingComparator(int option) {
+    public static Comparator<Flight> getSortingComparator(int option) {
         switch (option) {
             case 1: return Flight.compareByFare();
             case 2: return Flight.compareByDuration();

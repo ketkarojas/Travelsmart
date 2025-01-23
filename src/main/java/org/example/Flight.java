@@ -2,19 +2,41 @@ package org.example;
 import java.util.Comparator;
 
 public class Flight implements Comparable<Flight> {
-    private String FlightNumber;
-    private String FlightCompany;
-    private String SourceCity;
-    private String DestinationCity;
+    private String flightNumber;
+    private String flightCompany;
+    private String sourceCity;
+    private String destinationCity;
     private String airline;
     private int fare;
     int duration;
 
-    // Constructor 
-    public Flight(String FlightNumber, String SourceCity, String DestinationCity, int fare, int duration) {
-        this.FlightNumber = FlightNumber;
-        this.SourceCity = SourceCity;
-        this.DestinationCity = DestinationCity;
+    // Custom exception for invalid flight details
+    public static class InvalidFlightDetailsException extends RuntimeException {
+        public InvalidFlightDetailsException(String message) {
+            super(message);
+        }
+    }
+
+    public Flight(String flightNumber, String sourceCity, String destinationCity, int fare, int duration) {
+        if (flightNumber == null || flightNumber.isEmpty()) {
+            throw new InvalidFlightDetailsException("Flight company cannot be null or empty.");
+        }
+        if (sourceCity == null || sourceCity.isEmpty()) {
+            throw new InvalidFlightDetailsException("Source city cannot be null or empty.");
+        }
+        if (destinationCity == null || destinationCity.isEmpty()) {
+            throw new InvalidFlightDetailsException("Destination city cannot be null or empty.");
+        }
+        if (fare < 0) {
+            throw new InvalidFlightDetailsException("Fare cannot be negative.");
+        }
+        if (duration <= 0) {
+            throw new InvalidFlightDetailsException("Duration must be greater than zero.");
+        }
+
+        this.flightNumber = flightNumber;
+        this.sourceCity = sourceCity;
+        this.destinationCity = destinationCity;
         this.fare = fare;
         this.duration = duration;
         setFlightCompany();
@@ -22,27 +44,27 @@ public class Flight implements Comparable<Flight> {
 
     // Getter-setter methods
     public String getFlightNumber() {
-        return FlightNumber;
+        return flightNumber;
     }
 
     public void setFlightNumber(String flightNumber) {
-        FlightNumber = flightNumber;
+        flightNumber = flightNumber;
     }
 
     public String getSourceCity() {
-        return SourceCity;
+        return sourceCity;
     }
 
     public void setSourceCity(String sourceCity) {
-        SourceCity = sourceCity;
+        this.sourceCity = sourceCity;
     }
 
     public String getDestinationCity() {
-        return DestinationCity;
+        return destinationCity;
     }
 
     public void setDestinationCity(String destinationCity) {
-        DestinationCity = destinationCity;
+        this.destinationCity = destinationCity;
     }
 
     public int getFare() {
@@ -63,10 +85,10 @@ public class Flight implements Comparable<Flight> {
 
     // Function to set the airline depending on the flight code
     public void setFlightCompany() {
-        if (FlightNumber.startsWith("1")) FlightCompany = "AirIndia";
-        else if (FlightNumber.startsWith("2")) FlightCompany = "JetAirways";
-        else if (FlightNumber.startsWith("3")) FlightCompany = "SpiceJet";
-        airline = FlightCompany;
+        if (flightNumber.startsWith("1")) flightCompany = "AirIndia";
+        else if (flightNumber.startsWith("2")) flightCompany = "JetAirways";
+        else if (flightNumber.startsWith("3")) flightCompany = "SpiceJet";
+        airline = flightCompany;
     }
 
     public String getFlightCompany() {
@@ -76,8 +98,8 @@ public class Flight implements Comparable<Flight> {
     // To string method
     @Override
     public String toString() {
-        return FlightCompany + " [FlightNumber=" + FlightNumber + ", SourceCity=" + SourceCity + ", DestinationCity="
-                + DestinationCity + ", fare=" + fare + ", duration=" + duration + "]";
+        return flightCompany + " [FlightNumber=" + flightNumber + ", SourceCity=" +sourceCity + ", DestinationCity="
+                + destinationCity + ", fare=" + fare + ", duration=" + duration + "]";
     }
 
     // Function to compare flights based on fare, duration or both

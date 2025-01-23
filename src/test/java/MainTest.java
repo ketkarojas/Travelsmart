@@ -1,59 +1,59 @@
-// import org.example.Flight;
-// import org.example.Main;
-// import org.junit.Before;
-// import org.junit.Test;
-// import org.mockito.Mock;
-// import org.mockito.MockitoAnnotations;
-// import java.util.concurrent.CompletableFuture;
+import org.example.Flight;
+import org.example.Main;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import java.util.concurrent.CompletableFuture;
 
 
-// import static org.junit.Assert.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertNotNull;
-// import static org.mockito.Mockito.mock;
-// import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import org.example.Flight;
+import org.example.Main;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-// import java.util.*;
-// import java.util.concurrent.ExecutionException;
-// import java.util.concurrent.Future;
+import java.util.Comparator;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-// public class MainTest {
+public class MainTest {
 
-//     @Mock
-//     private Main main;
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-//     @Before
-//     public void setUp() {
-//         MockitoAnnotations.openMocks(this);
-//         main = mock(Main.class);
-//     }
+    @Test
+    public void testGetSortingComparatorByFare() {
+        Comparator<Flight> comparator = Main.getSortingComparator(1);
+        Flight flight1 = new Flight("AI101", "Delhi", "Mumbai", 5000, 2);
+        Flight flight2 = new Flight("AI102", "Delhi", "Mumbai", 3000, 3);
+        assertTrue(comparator.compare(flight1, flight2) > 0);
+    }
 
-//     @Test
-//     public void testSearchFlights() throws ExecutionException, InterruptedException, ExecutionException {
-//         List<Flight> mockedFlights = Arrays.asList(
-//                 new Flight("AI101", "Delhi", "Mumbai", 5000, 2),
-//                 new Flight("AI102", "Delhi", "Mumbai", 3000, 3)
-//         );
+    @Test
+    public void testGetSortingComparatorByDuration() {
+        Comparator<Flight> comparator = Main.getSortingComparator(2);
+        Flight flight1 = new Flight("AI101", "Delhi", "Mumbai", 5000, 2);
+        Flight flight2 = new Flight("AI102", "Delhi", "Mumbai", 3000, 3);
+        assertTrue(comparator.compare(flight1, flight2) < 0);
+    }
 
-//         when(main.searchFlightsAsync("Delhi", "Mumbai")).thenReturn(CompletableFuture.completedFuture(mockedFlights));
-
-//         Future<List<Flight>> future = main.searchFlightsAsync("Delhi", "Mumbai");
-//         List<Flight> flights = future.get();
-
-//         assertNotNull(flights);
-//         assertEquals(2, flights.size());
-//         assertEquals("Delhi", flights.get(0).getSourceCity());
-//     }
-
-//     @Test
-//     public void testSortFlightsByFare() {
-//         List<Flight> flights = Arrays.asList(
-//                 new Flight("AI101", "Delhi", "Mumbai", 5000, 2),
-//                 new Flight("AI102", "Delhi", "Mumbai", 3000, 3)
-//         );
-
-//         flights.sort(Flight.compareByFare());
-
-//         assertEquals(3000, flights.get(0).getFare()); // The flight with the lower fare should be first
-//     }
-// }
+    @Test
+    public void testGetSortingComparatorByFareAndDuration() {
+        Comparator<Flight> comparator = Main.getSortingComparator(3);
+        Flight flight1 = new Flight("AI101", "Delhi", "Mumbai", 5000, 2);
+        Flight flight2 = new Flight("AI102", "Delhi", "Mumbai", 5000, 3);
+        assertTrue(comparator.compare(flight1, flight2) < 0);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetSortingComparatorInvalidOption() {
+        Main.getSortingComparator(4);
+    }
+}
