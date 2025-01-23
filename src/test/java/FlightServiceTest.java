@@ -18,6 +18,7 @@ public class FlightServiceTest {
 
     private FlightService flightService;
 
+    @SuppressWarnings("deprecation")
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

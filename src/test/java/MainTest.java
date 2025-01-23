@@ -2,28 +2,14 @@ import org.example.Flight;
 import org.example.Main;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import java.util.concurrent.CompletableFuture;
-
-
-import static org.junit.Assert.assertEquals;
-import org.example.Flight;
-import org.example.Main;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Comparator;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class MainTest {
 
+    @SuppressWarnings("deprecation")
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

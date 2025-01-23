@@ -1,8 +1,6 @@
 import org.example.Flight;//imports the flight class from org.example package
 import org.junit.Test;//it imports the test annotation from junit which marks a method as a test case which junit should run
 import static org.junit.Assert.assertEquals;//imports assertequals from the assert class of junit and its used to assert that two values are equal else test will fail
-import static org.junit.jupiter.api.Assertions.*;
-
 
 import java.util.Arrays;
 import java.util.List;
