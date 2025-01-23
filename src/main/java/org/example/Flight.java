@@ -10,6 +10,7 @@ public class Flight implements Comparable<Flight> {
     private int fare;
     int duration;
 
+    //Constructor 
     public Flight(String FlightNumber, String SourceCity, String DestinationCity, int fare, int duration) {
         this.FlightNumber = FlightNumber;
         this.SourceCity = SourceCity;
@@ -19,6 +20,7 @@ public class Flight implements Comparable<Flight> {
         setFlightCompany();
     }
 
+    //getter-setter methods
     public String getFlightNumber() {
         return FlightNumber;
     }
@@ -59,6 +61,7 @@ public class Flight implements Comparable<Flight> {
         this.duration = duration;
     }
 
+    //function to set the airline depending on the flight code
     public void setFlightCompany(){
         if(FlightNumber.startsWith("1")) FlightCompany = "AirIndia";
         else if(FlightNumber.startsWith("2")) FlightCompany = "JetAirways";
@@ -70,12 +73,16 @@ public class Flight implements Comparable<Flight> {
         return airline;
     }
 
+
+    //to string method
     @Override
     public String toString() {
         return FlightCompany + " [FlightNumber=" + FlightNumber + ", SourceCity=" + SourceCity + ", DestinationCity="
                 + DestinationCity + ", fare=" + fare + ", duration=" + duration + "]";
     }
 
+
+    //function to copmare flights based on fare,duration or both
     @Override
     public int compareTo(Flight other) {
         return Comparator.comparingInt(Flight::getFare)
