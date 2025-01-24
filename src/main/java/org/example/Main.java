@@ -34,7 +34,7 @@ public class Main {
 
             // Check if any flights are found
             if (flights.isEmpty()) {
-                System.out.println("No flights found between " + sourceCity + " and " + destinationCity);
+                System.out.println("No flights found in between " + sourceCity + " and " + destinationCity);
             } else {
                 System.out.println("Available flights:");
                 printFlightsTable(flights);
