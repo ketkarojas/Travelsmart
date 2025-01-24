@@ -1,19 +1,11 @@
 import org.example.Flight;
 import org.example.Main;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Comparator;
 
 import static org.junit.Assert.assertTrue;
 public class MainTest {
-
-    @SuppressWarnings("deprecation")
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testGetSortingComparatorByFare() {

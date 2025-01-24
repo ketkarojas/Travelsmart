@@ -12,16 +12,13 @@ import org.example.FlightService;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
 public class FlightServiceTest {
 
     private FlightService flightService;
 
-    @SuppressWarnings("deprecation")
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         flightService = FlightService.getInstance();
         flightService.clearFlights(); // Reset the singleton instance
     }
